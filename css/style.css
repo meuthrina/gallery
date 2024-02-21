@@ -1,0 +1,184 @@
+/* Font */
+@font-face {
+  font-family: "helveticas";
+  src: url(../fonts/helvetica.woff) format(woff);
+}
+
+/* Style Utama */
+body {
+  font: 18px/36px "helveticas", "Arial", "sans-serif";
+  background-color: #ddd;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 80px;
+  margin: 50px 0;
+  text-align: center;
+  text-shadow: 1px 1px 1px white;
+  font-weight: bolder;
+}
+
+.container {
+  width: 600px;
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.gallery li {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #666;
+  float: left; /* supaya elemen selanjutnya berada di sebelah kanan elemen pertama */
+  margin-right: 20px;
+  overflow: hidden; /* supaya gambar ikut bulat, seperti clipping */
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  display: flex; /* supaya gambar berada di tengah lingkaran, karena ukuran default gambar lebih besar dari lingkaran */
+}
+
+.gallery li a img {
+  border-radius: 50%;
+}
+
+.gallery li span {
+  display: block; /* karena span adalah elemen inline, jadi kita ubah displaynya menjadi block supaya bisa diatur width dan height nya */
+  width: 120px;
+  height: 120px;
+  background-color: rgba(200, 200, 200, 0.5);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  line-height: 120px;
+  color: #333;
+  text-shadow: 1px 1px 1px #ddd;
+  opacity: 0;
+  transition: 0.3s;
+  transform: scale(0) rotate(0deg);
+}
+
+.gallery li a:hover span {
+  opacity: 1;
+  transform: scale(1) rotate(360deg);
+}
+
+/* Overlay */
+.overlay {
+  width: 0;
+  height: 0;
+  overflow: hidden; /* supaya overlay menutupi gambar full */
+  position: fixed; /* supaya ketika kita scroll halaman nya tidak mempengaruhi overlay nya */
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 9999;
+  transition: 0.8s;
+  text-align: center;
+  padding: 100px 0;
+}
+
+.overlay:target {
+  width: auto;
+  height: auto;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.overlay img {
+  max-height: 100%;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.overlay:target img {
+  animation: zoomDanFade 1s;
+}
+
+.overlay .close {
+  position: absolute;
+  top: 50px;
+  left: 60%;
+  margin-left: 100px;
+  color: white;
+  text-decoration: none;
+  background-color: black;
+  border: 1px solid white;
+  line-height: 14px;
+  padding: 5px 10px 10px 10px;
+  opacity: 0;
+}
+
+.overlay:target .close {
+  animation: slideDownFade 0.5s 0.5s forwards;
+}
+.overlay:target .next {
+  animation: fadeAja 0.5s 0.5s forwards;
+}
+.overlay:target .prev {
+  animation: fadeAja 0.5s 0.5s forwards;
+}
+
+/* Navigasi */
+.next {
+  width: 64px;
+  height: 64px;
+  background-image: url(../img/next.png);
+  position: absolute; /* supaya gambar terlihat karena a href displaynya inline */
+  text-indent: -9999px; /* supaya text link a href pindah ke kiri sampai tidak terlihat */
+  top: 45%;
+  margin-left: 30px;
+  opacity: 0;
+}
+
+.prev {
+  width: 64px;
+  height: 64px;
+  background-image: url(../img/prev.png);
+  position: absolute; /* supaya gambar terlihat karena a href displaynya inline */
+  text-indent: -9999px; /* supaya text link a href pindah ke kiri sampai tidak terlihat */
+  top: 45%;
+  margin-left: -100px;
+  opacity: 0;
+}
+/* Animasi */
+@keyframes fadeAja {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomDanFade {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDownFade {
+  0% {
+    opacity: 0;
+    margin-top: -20px;
+  }
+  100% {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+/* Clear Float */
+.clear {
+  clear: both;
+}
